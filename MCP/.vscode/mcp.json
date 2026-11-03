@@ -1,0 +1,19 @@
+{
+    "servers": {
+        "calculator_mcp": {
+            "command": "C:/AI Engineering/MCP/.venv/Scripts/python.exe",
+            "args": [
+                "C:/AI Engineering/MCP/01_stdio_server/calculator_mcp.py"
+           ],
+            "env": {}
+        },
+        "freecodecamp_feed_searcher_mcp": {
+            "command": "npx",
+            "args": [
+                "mcp-remote",
+                "http://localhost:8000/mcp",
+            ],
+            "env": {}
+        }
+    }
+}
