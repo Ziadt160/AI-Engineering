@@ -13,12 +13,6 @@ Putting the pieces together: load, split, embed, index, retrieve, and generate a
 - The prompt tells the model to say "I don't know" when the answer is not in the context, which is the simplest guard against hallucination.
 - Citations are only as good as the metadata: the loader's `source` and `page` fields have to make it into the prompt.
 
-## Notes
-
-In `demo_rag_with_sources.py`:
-- The sample documents have no `source` key, so citations show as `[unknown]`.
-- The `hnsfw:construction_ef` key is misspelled (it should be `hnsw:construction_ef`), so Chroma ignores that setting.
-
 ## Run
 
 ```bash

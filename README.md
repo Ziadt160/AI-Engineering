@@ -22,7 +22,7 @@ Each concept has its own folder with an index README that explains the idea, lis
 | 06 | [Advanced retrieval](Production%20RAG/06_advanced_retrieval/) | Hybrid (BM25 + vector), multi-query, parent-document, contextual compression |
 | 07 | [Observability](Production%20RAG/07_observability/) | LangSmith tracing |
 | 08 | [Cost optimization](Production%20RAG/08_cost_optimization/) | Semantic cache, model routing, token budgets |
-| 09 | [Production RAG](Production%20RAG/09_production_rag/) | Service-style RAG class (work in progress) |
+| 09 | [Production RAG](Production%20RAG/09_production_rag/) | Service-style RAG class on Supabase |
 
 ### MCP
 

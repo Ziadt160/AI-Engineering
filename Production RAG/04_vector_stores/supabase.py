@@ -105,6 +105,7 @@ vector_store = PGVector(
 
 )
 
+vector_store.add_documents(chunks, ids=[f"tech_docs-{i}" for i in range(len(chunks))])
 
 docs = vector_store.similarity_search(query="What is langhchain" , k=1)
 

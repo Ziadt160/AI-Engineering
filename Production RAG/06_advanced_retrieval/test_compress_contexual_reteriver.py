@@ -129,3 +129,7 @@ def test_compressor():
     query = "What frameworks exist for building llm applications"
 
     print( contexual_compreon_retriever.invoke(query))
+
+
+if __name__ == "__main__":
+    test_compressor()

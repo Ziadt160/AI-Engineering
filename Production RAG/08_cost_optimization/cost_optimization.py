@@ -194,10 +194,10 @@ Respond with only: simple or complex
             model_name = "gpt-4o-mini"
             cost_per_1k = 0.00015
 
-        elif complexity == "complex":
+        else:
             model = self.expensive
             model_name = "gpt-4o"
-            cost_per_1k = 0.00040
+            cost_per_1k = 0.0025
 
         response = model.invoke(query)
 
@@ -223,11 +223,11 @@ class TokenBudget:
     def check_token_budget(self, text: str) -> tuple[bool, int]:
         """ check token budget based on the maximum token per request"""
         output_tokens = self.estimate_token(text)
-        return output_tokens >= self.max_token_per_request, output_tokens
+        return output_tokens <= self.max_token_per_request, output_tokens
 
     def record_usage(self, input_tokens: int, output_tokens: int):
         self.usage["input_tokens"] += input_tokens
-        self.usage["output_tokens"] +- output_tokens
+        self.usage["output_tokens"] += output_tokens
         self.usage["requests"] += 1
 
 
@@ -246,7 +246,7 @@ class LLMBudgeted:
 
         if not within_budget:
             raise ValueError(
-                 f"Query exceeds token budget: {tokens} > {self.budget.max_per_request}"
+                 f"Query exceeds token budget: {tokens} > {self.token_budget.max_token_per_request}"
             )
 
         # Execute 
@@ -255,6 +255,8 @@ class LLMBudgeted:
 
 
         # Record Usage
-        output_tokens = self.token_budget.estimate_token(tokens)
+        output_tokens = self.token_budget.estimate_token(content)
         self.token_budget.record_usage(tokens, output_tokens)
+
+        return content
 

@@ -16,7 +16,7 @@ Turning text into vectors whose distance reflects meaning. Every chunk is embedd
 ## Notes
 
 - `cached_embedding.py` reads the model name from `EMBEDDING_MODEL_NAME` in `.env`.
-- By default, `CacheBackedEmbeddings` caches `embed_documents` only. To make the script's second `embed_query` call come from the cache, pass `query_embedding_cache=True`.
+- By default, `CacheBackedEmbeddings` caches `embed_documents` only. The script passes `query_embedding_cache=True` so the second `embed_query` call comes from the cache.
 
 ## Run
 

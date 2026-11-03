@@ -17,7 +17,8 @@ store = LocalFileStore(root_path=mkdtemp())
 cached_embedding = CacheBackedEmbeddings.from_bytes_store(
     underlying_embeddings=embedding,
     document_embedding_cache=store,
-    namespace="exercise"
+    namespace="exercise",
+    query_embedding_cache=True
 )
 
 

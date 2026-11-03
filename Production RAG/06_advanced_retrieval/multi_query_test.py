@@ -90,3 +90,5 @@ multi_query = MultiQueryRetriever.from_llm(vector_store.as_retriever(search_kwar
 query = "What tools can I use to build AI applications?"
 
 docs = multi_query.invoke(query)
+
+print(docs)

@@ -2,6 +2,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from typing import Optional
 from langchain_postgres import PGVector
 from pydantic import dataclasses
+from dataclasses import field
+from sqlalchemy.engine import make_url
 import os
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
@@ -25,16 +27,18 @@ class BAAIEmbedding:
 
         return self._model
 
-@dataclasses
+@dataclasses.dataclass
 class Config:
 
-    subpase_connection :str = os.getenv("POSTGRES_CONNECTION_URL")
+    subpase_connection :str = make_url(os.getenv("POSTGRES_CONNECTION_URI")).set(
+        password=os.getenv("POSTGRES_PASSWORD"), drivername="postgresql+psycopg", query={"sslmode": "require"}
+    ).render_as_string(hide_password=False)
 
     embedding_model_name :str = r""
 
-    embedding_model_kwargs :dict = {"device" : "cpu"}
+    embedding_model_kwargs :dict = field(default_factory=lambda: {"device" : "cpu"})
 
-    embedding_encode_kwargs :dict = {"normalize_embeddings" : True}
+    embedding_encode_kwargs :dict = field(default_factory=lambda: {"normalize_embeddings" : True})
 
     llm_model_name: str = "gpt-4o-mini"
 
@@ -48,7 +52,7 @@ class Config:
 
 class RagProduction:
 
-    def __init__(self, config: Optional[Config]):
+    def __init__(self, config: Optional[Config] = None):
         self.config = config or Config()
         self._chain = None
         self.embedding = BAAIEmbedding()
@@ -58,7 +62,7 @@ class RagProduction:
     def vector_store(self) -> PGVector:
 
         if self._vector_store is None:
-            self.vector_store = PGVector(
+            self._vector_store = PGVector(
                 embeddings=self.embedding.model,
                 collection_name="production_rag",
                 connection=self.config.subpase_connection,
@@ -99,8 +103,10 @@ class RagProduction:
             return "\n\n".join(doc.page_content for doc in docs)
 
         chain = (
-            {"question" : RunnablePassThrough() , "context" : retriever} |
+            {"question" : RunnablePassthrough() , "context" : retriever | format_docs} |
             prompt |
             llm |
-            Str
+            StrOutputParser()
         )
+
+        return chain

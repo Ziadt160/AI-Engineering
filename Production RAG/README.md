@@ -15,7 +15,7 @@ A step-by-step track for building retrieval-augmented generation (RAG) with Lang
 | 06 | Advanced retrieval | [`06_advanced_retrieval`](06_advanced_retrieval/) | `hybrid_search.py`, `multi_query_test.py`, `test_parent_child_reteriver.py`, `test_compress_contexual_reteriver.py` |
 | 07 | Observability | [`07_observability`](07_observability/) | `test_langsmith.py` |
 | 08 | Cost optimization | [`08_cost_optimization`](08_cost_optimization/) | `cost_optimization.py` |
-| 09 | Production RAG | [`09_production_rag`](09_production_rag/) | `subpase_production_rag.py` (work in progress) |
+| 09 | Production RAG | [`09_production_rag`](09_production_rag/) | `subpase_production_rag.py` |
 
 ## Setup
 

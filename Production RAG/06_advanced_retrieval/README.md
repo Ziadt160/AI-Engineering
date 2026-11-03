@@ -16,11 +16,6 @@ Techniques that improve on plain top-k vector search when queries use exact term
 - **Parent-document**: precise matching on small chunks while still giving the LLM enough surrounding context.
 - **Compression**: long, noisy chunks where only a sentence or two is relevant (it costs one LLM call per retrieved chunk).
 
-## Notes
-
-- `multi_query_test.py` and `test_parent_child_reteriver.py` don't print their results. Wrap the final `invoke(...)` in `print()` to see them.
-- `test_compress_contexual_reteriver.py` defines `test_compressor()` but never calls it. Add a call at the bottom to run it.
-
 ## Run
 
 ```bash

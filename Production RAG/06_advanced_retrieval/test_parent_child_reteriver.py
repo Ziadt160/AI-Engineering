@@ -82,5 +82,5 @@ parent_child_retrierver.add_documents([long_doc])
 
 query = "What is langchain"
 
-parent_child_retrierver.invoke(query)
+print(parent_child_retrierver.invoke(query))
 
